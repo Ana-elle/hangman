@@ -7,7 +7,7 @@ main{
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translateX(-50%)translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
 	text-align: center;
 }
 
@@ -16,9 +16,33 @@ main{
 }
 
 button{
-	padding: 5px 20px;
-	margin: 5px;
 	border: 1px solid gray;
 	background-color: gray;
 	color: white;
+	cursor: pointer;
+}
+
+button[disabled]{
+	background-color: #d37ed2;
+	border-color: #d37ed2;
+	cursor: default;
+}
+
+#difficultySec button{
+	font-size: 1.2rem;
+	padding: 20px 25px;
+	margin: 10px;
+	box-shadow: 1px 1px 1px 0px gray;
+	border-radius: 10px;
+}
+
+#lettersDiv button{
+	padding: 5px 20px;
+	margin: 8px;
+	font-size: 1.1rem;
+	border-radius: 5px;
+}
+
+#wordDisplaySec{
+	font-size: 2rem;
 }

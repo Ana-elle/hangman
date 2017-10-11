@@ -4,6 +4,7 @@
 	<title>Hangman</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 	<h1>The famous Hangman (but a better one...)</h1>
@@ -15,34 +16,25 @@
 		</section>
 
 		<section id="gameSec">
-			<section id="wordDisplaySec">
-			
-			</section>
-
-			<section id="numberOfLives">
+			<article>
+				<section id="wordDisplaySec">
 				
-			</section>
+				</section>
 
-
-
-			<section id="errorsSec">
-				
-			</section>
-
-			<section id="letterSec">
-				<label value="Type a letter :"></label>
-				<input type="text" name="letter" id="letter" placeholder="Type your letter here" maxlength="1" />
-				<button value="Try it !" type="button" id="try">Try it !</button>
-			</section>
-
-			<section id="lettersTried">
-				
-			</section>
-
-			<section id="message">
-				
-			</section>
+				<section id="numberOfLives">
+					
+				</section>
+			</article>
+			<article>
+				<section>
+					<p>Choose a letter :</p>
+					<div id="lettersDiv">
+						
+					</div>
+				</section>
+			</article>
 		</section>
+
 		<section id="gameOver">
 			<div>
 				
