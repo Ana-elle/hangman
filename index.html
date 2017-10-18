@@ -4,10 +4,12 @@
 	<title>Hangman</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/canvas.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-	<h1>The famous Hangman (but a better one...)</h1>
+	<h1>Pick-flower (yeah it's a hangman ;) )</h1>
+
 	<main>
 		<section id="difficultySec">
 			<button value="Easy" type="button" id="1">Easy</button>
@@ -16,23 +18,17 @@
 		</section>
 
 		<section id="gameSec">
-			<article>
 				<section id="wordDisplaySec">
 				
 				</section>
-
-				<section id="numberOfLives">
-					
-				</section>
-			</article>
-			<article>
-				<section>
-					<p>Choose a letter :</p>
+				<section class="keyboard">
 					<div id="lettersDiv">
 						
 					</div>
 				</section>
-			</article>
+				<section id="numberOfLives">
+					
+				</section>
 		</section>
 
 		<section id="gameOver">

@@ -1,3 +1,7 @@
+body{
+	font-family: 'arial';
+}
+
 h1{
 	text-align: center;
 	padding: 50px;
@@ -6,9 +10,15 @@ h1{
 main{
 	position: absolute;
 	top: 50%;
-	left: 50%;
+	left: 60%;
 	transform: translateX(-50%) translateY(-50%);
 	text-align: center;
+}
+
+.keyboard{
+	background-color: #ededed;
+	padding: 40px;
+	border-radius: 10px;
 }
 
 #gameSec, #gameOver{
@@ -16,15 +26,15 @@ main{
 }
 
 button{
-	border: 1px solid gray;
-	background-color: gray;
+	border: 1px solid #d37ed2;
+	background-color: #d37ed2;
 	color: white;
 	cursor: pointer;
 }
 
 button[disabled]{
-	background-color: #d37ed2;
-	border-color: #d37ed2;
+	background-color: gray;
+	border-color: gray;
 	cursor: default;
 }
 
@@ -44,5 +54,8 @@ button[disabled]{
 }
 
 #wordDisplaySec{
-	font-size: 2rem;
+	font-size: 3rem;
+	margin: 30px;
+	padding: 20px;
 }
+
