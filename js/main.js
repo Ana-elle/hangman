@@ -2,11 +2,47 @@
 
 /***************** VARIABLES ****************************/
 var words = ["abrupt", "absurd", "avenue", "awkward", "banjo", "bayou", "bikini", "blitz", "blizzard", "buffalo", "buzzing", "cycle", "daiquiri", "dizzy", "dwarf", "fishhook", "fixable", "fjord", "flabbergasted", "fuchsia", "funny", "galaxy", "gossip", "hyphen", "icebox", "injury", "ivory", "ivy", "jackpot", "jawbreaker", "jaywalk", "jazzy", "jelly", "jinx", "jockey", "jogging", "joking", "jovial", "joyful", "juicy", "jukebox", "jumbo", "kayak", "kazoo", "keyhole", "khaki", "kiosk", "length", "lucky", "luxury", "marquis", "matrix", "megahertz", "microwave", "mystify", "nightclub", "nowadays", "onyx", "oxygen", "pajama", "pixel", "pneumonia", "psychopath", "puppy", "puzzled", "quartz", "queue", "reliable", "rhubarb", "rhythm", "scratch", "sociopath", "sphinx", "spritz", "staff", "strength", "stretch", "stronghold", "subway", "syndrome", "transcript", "transgress", "transplant", "trustworthy", "twelfth", "unknown", "unworthy", "unzip", "uptown", "vaporize", "vodka", "voodoo", "vortex", "walkway", "waltz", "wave", "wax", "whiskey", "wimpy", "witchcraft", "wizard", "wrist", "yacht", "youth", "yummy", "zigzag", "zipper", "zodiac", "zombie" ]; // array of words to guess
-var wordPicked; // word that has been randomly picked
+
+var alphabet = { 
+	a: 1,
+	b: 3,
+	c: 3,
+	d: 2,
+	e: 1,
+	f: 4,
+	g: 2,
+	h: 4,
+	i: 1,
+	j: 8,
+	k: 5,
+	l: 1,
+	m: 3,
+	n: 1,
+	o: 1,
+	p: 3,
+	q: 10,
+	r: 1,
+	s: 1,
+	t: 1,
+	u: 1,
+	v: 4,
+	w: 4,
+	x: 8,
+	y: 4,
+	z: 10
+};
+
+var wordnScore = {}; // contains the words + their score. Used to create lists of words per level of difficulty
+var wordsByLevel = {}; //object which will store the words of the database sorted out in 3 levels (3 properties)
+var difficultyLevels = {}; // object that stores the scores that starts/ends each level of diff
+var wordPicked; // word that was randomly picked
 var result = ""; //blanks
 var result2 = ""; //word with blanks & letters guessed
-var lives; //number of attempts available
-var letter; //letter 
+var lives = ""; //number of attempts available
+var letter; //letter tried on 1 round
+
+var canvas = document.getElementById('hangman');
+var context;
 
 
 //HTML elements
@@ -17,24 +53,78 @@ var wordDisplaySec = document.getElementById('wordDisplaySec');
 var letterSec = document.querySelector('#letterSec div')
 var gameOverMess = document.querySelector('#gameOver div');
 var lettersDiv = document.getElementById('lettersDiv');
+var hangman = document.getElementById('hangman');
 
 
 /********************* FUNCTIONS ******************************/
 
+
+//Attribute a score to each word of the database (to set levels of difficulty)
+function addScoreToWord(){
+	for(var i = 0; i < words.length; i++){
+		var wordScore = 0;
+		var wordArray = words[i].split("");
+
+		for(var j = 0; j < wordArray.length; j++){
+			wordScore += alphabet[wordArray[j]];
+		}
+
+		wordnScore[words[i]] = wordScore;
+	}
+
+	console.log(wordnScore);
+}
+
+//sets a score range for each level of difficulty
+function createDifficultyLevels(){
+	var scoreValues = Object.values(wordnScore);
+	
+	scoreValues = scoreValues.sort(function compareNombres(a, b) {
+  		return a - b;
+	});
+
+	difficultyLevels['level1'] = scoreValues[Math.floor(scoreValues.length / 3)];
+	difficultyLevels['level2'] = scoreValues[Math.floor(scoreValues.length *2/3)];
+	console.log(difficultyLevels);
+
+	wordsByLevel.level1 = new Array;
+	wordsByLevel.level2 = new Array;
+	wordsByLevel.level3 = new Array;
+
+	for (var prop in wordnScore){
+		if(wordnScore[prop] <= difficultyLevels['level1']){
+			wordsByLevel.level1.push(prop);
+		}
+
+		if(wordnScore[prop] > difficultyLevels['level1'] && wordnScore[prop] <= difficultyLevels['level2']){
+			wordsByLevel.level2.push(prop);
+		}
+
+		if(wordnScore[prop] > difficultyLevels['level2']){
+			wordsByLevel.level3.push(prop);
+		}
+	}
+	console.log(wordsByLevel);
+	console.log(wordsByLevel.level1.length);
+	console.log(wordsByLevel.level2.length);
+	console.log(wordsByLevel.level2.length);
+	console.log(words.length);
+}
+
+
 //creates the buttons with letters
 function generateLetters(){
-	var alphabet = [];
+	var alphabetButtons = [];
 	var button;
 	for (var i = 0; i < 26; i++) {
-     	alphabet.push(String.fromCharCode(97+i));
+     	alphabetButtons.push(String.fromCharCode(97+i));
 	}
-	console.log(alphabet);
 
-	for (var j=0 ; j < alphabet.length ; j++){
+	for (var j=0 ; j < alphabetButtons.length ; j++){
 		button = document.createElement('button');
-		button.value = alphabet[j];
-		button.innerHTML = alphabet[j];
-		button.dataset.id = j+1;
+		button.value = alphabetButtons[j];
+		button.innerHTML = alphabetButtons[j];
+		button.dataset.id = alphabetButtons[j];
 		button.setAttribute('class', 'letterButton');
 		lettersDiv.appendChild(button);
 	}
@@ -43,7 +133,7 @@ function generateLetters(){
 //Show the number of lives left
 function livesDisplay(){
 	console.log(lives);
-	numberOfLives.innerHTML = "You have " + lives + " lives left."
+	numberOfLives.innerHTML = "<p>You have " + lives + " lives left.</p>"
 }
 
 
@@ -55,11 +145,11 @@ function wordDisplay(){
 //function called after each round. Check if game is over and displays the result
 function gameEnding(){
 	if(lives <= 0){
-		gameOverMess.innerHTML = "Game Over";
+		gameOverMess.innerHTML = "<p>Game Over</p><p>The word was : <span class='highlight'>" + wordPicked +".</span></p>";
 	}
 
 	if(result2 == wordPicked){
-		gameOverMess.innerHTML = "<p>" + wordPicked + "</p><p>You win ! Congratulations !</p>";
+		gameOverMess.innerHTML = "<p><span class='highlight'>" + wordPicked + "</span></p><p>You win ! Congratulations !</p>";
 	}
 
 	setTimeout(function(){
@@ -83,19 +173,18 @@ function initLettersButtons(){
 function init(){
 	result = "";
 	result2 = "";
+	lives = "11";
 	initLettersButtons();	
-	chooseWord();
-	console.log(wordPicked);
-	turnToBlanks(wordPicked);
 	console.log(this);
 	setDifficulty(this);
 	gameSec.style.display = "block";
+	hangman.style.display = "block";
 	livesDisplay();
 	wordDisplay();
 
 }
 
-//eventlistener when click on letters (delegation)
+//eventlistener when click on letters
 function onClickPlayRound(e){
 	if(e.target.nodeName.toLowerCase() === 'button'){
 		playRound(e);
@@ -106,17 +195,21 @@ function onClickPlayRound(e){
 function restartGame(){
 	document.getElementById('gameOver').style.display = "none";
 	gameSec.style.display = "none";
+	hangman.style.display = "none";
 	difficultySec.style.display = "block";
 }
 
 //initialize the layout of the game
 function startGame(){
+	addScoreToWord();
+	createDifficultyLevels();
 	generateLetters();
-	lettersDiv.addEventListener('click', onClickPlayRound);
 	chooseDifficulty();
+	createCanvas();
+	lettersDiv.addEventListener('click', onClickPlayRound);
 }
 	
-//eventslisteners
+//eventlisteners
 function chooseDifficulty(){
 	document.getElementById('1').addEventListener("click", init);
 	document.getElementById('2').addEventListener("click", init);
@@ -134,36 +227,52 @@ function setDifficulty(level){
 
 	switch (difficulty){
 		case "1":
-			lives = Math.floor(wordPicked.length *2);
+			chooseWord("level1");
 		break;
 
 		case "2":
-			lives = Math.floor(wordPicked.length *1.5);
+			chooseWord("level2");
 		break;
 
 		case "3":
-			lives = Math.floor(wordPicked.length *1);
+			chooseWord("level3");
 		break;
 
 		default:
-			lives = "Ooops you don't have any lives :o"
-
+			alert("Please choose a level of difficulty");
 	}
 
+	turnToBlanks(wordPicked);
+
 }
 
-//pick randomly a word in the array and transform to string
-function chooseWord () {
-    var randomPick = Math.floor(Math.random() * words.length);
-    wordPicked = words[randomPick].toString();
+//pick randomly a word in the object and transform to string
+function chooseWord (level) {
+    var randomPick = Math.floor(Math.random() * wordsByLevel[level].length);
+    console.log(wordsByLevel[level]);
+    wordPicked = wordsByLevel[level][randomPick].toString();
+    console.log(wordPicked);
 }
 
-//turns the word to blanks
+//turns the word to blanks except one letter that will be shown from the beginning
 function turnToBlanks(wordPicked){
+
+	var vowels = ["a", "e", "i", "o", "u", "y"];
+	var index;
+	var vowel;
+
 	for(var i=0 ; i < wordPicked.length ; i++){
 		result += "_ ";
 	}
-	console.log(result);
+
+	for(var j=0 ; j < vowels.length ; j++){
+		if(wordPicked.includes(vowels[j])){
+			vowel = vowels[j];
+			break;
+		}
+	}
+
+	$("button[data-id="+vowel+"]").trigger("click", onClickPlayRound);
 }
 
 //disables letters already tried
@@ -179,6 +288,7 @@ function playRound(e){
 	getLetter(e);
 	disableLetter(e);
 	compareLetter(wordPicked, letter);
+	drawCanvas();
 	wordDisplay();
 	livesDisplay();
 	
