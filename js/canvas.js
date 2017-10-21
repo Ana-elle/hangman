@@ -1,9 +1,5 @@
 'use strict';
 
-/*************************** VARIABLE *********************************/
-
-
-
 /************************** FUNCTIONS **********************************/
 function createCanvas(){
 	if (!canvas) {
@@ -117,11 +113,3 @@ function drawCanvas(){
     	context.clearRect(0,0,350,540);
 	}
 }
-
-
-
-
-/*************************** MAIN CODE ***********************************/
-window.addEventListener('DOMContentLoaded', function(){
-	
-});
