@@ -1,21 +1,28 @@
 body{
-	font-family: 'arial';
+	font-family: 'Roboto', 'arial', sans-serif;
 }
 
 h1{
 	text-align: center;
 	padding: 50px;
+	margin-bottom: 40px;
+	font-size: 3rem;
+}
+
+.container{
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
 }
 
 main{
-	position: absolute;
-	top: 50%;
-	left: 60%;
-	transform: translateX(-50%) translateY(-50%);
 	text-align: center;
 }
 
 .keyboard{
+	width : 50%;
+	margin-right: auto;
+	margin-left: auto;
 	background-color: #ededed;
 	padding: 40px;
 	border-radius: 10px;
@@ -38,10 +45,15 @@ button[disabled]{
 	cursor: default;
 }
 
-#difficultySec button{
+#difficultySec{
+	margin: 40px;
+	padding: 40px;
+}
+
+#difficultySec button, #gameOver button{
 	font-size: 1.2rem;
 	padding: 20px 25px;
-	margin: 10px;
+	margin: 40px 10px;
 	box-shadow: 1px 1px 1px 0px gray;
 	border-radius: 10px;
 }
@@ -59,3 +71,25 @@ button[disabled]{
 	padding: 20px;
 }
 
+#hangman{
+	position: absolute;
+	left: 50px;
+	top: 120px;
+	display: none;
+}
+
+#gameOver p{
+	padding: 20px;
+}
+
+#gameOver p:first-of-type{
+	font-size: 2.5rem;
+	font-weight: bold;
+	color: #d37ed2;
+}
+
+.highlight{
+	color: #722872;
+	font-size: 2.5rem;
+	display: block;
+}
