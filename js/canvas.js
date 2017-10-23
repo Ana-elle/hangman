@@ -88,22 +88,21 @@ function drawCanvas(){
 		context.lineTo(304, 300);
 		context.stroke();
 
+		//eyes
 		context.beginPath();
-		context.moveTo(240, 120);
 		context.fillStyle = "white";
 		context.arc(240, 120, 5, 0, Math.PI * 2);
 		context.fill();
 
 		context.beginPath();
-		context.moveTo(250, 120);
 		context.arc(260, 120, 5, 0, Math.PI * 2);
 		context.fill();
 
+		//mouth
 		context.beginPath();
-		context.moveTo(247, 150);
 		context.strokeStyle = 'white';
-		context.lineWidth = '5';
-		context.arc(247, 200, 15, Math.PI, 2 * Math.PI, false);
+		context.lineWidth = '3';
+		context.arc(250, 147, 10, 1.2*Math.PI, 1.8*Math.PI, false);
 		context.stroke();
 
 
