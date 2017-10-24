@@ -15,7 +15,6 @@ function createCanvas(){
 
 
 function drawCanvas(){
-	console.log('coucou');
 
 	switch (lives) {
 	case 10://wood

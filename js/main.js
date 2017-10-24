@@ -48,12 +48,13 @@ var context;
 //HTML elements
 var difficultySec = document.getElementById('difficultySec');
 var gameSec = document.getElementById('gameSec');
-var numberOfLives = document.getElementById('numberOfLives');
+var numberOfLives = document.querySelector('#numberOfLives p');
 var wordDisplaySec = document.getElementById('wordDisplaySec');
 var letterSec = document.querySelector('#letterSec div')
-var gameOverMess = document.querySelector('#gameOver div');
+var gameOverMess = document.getElementById('gameOverMess');
 var lettersDiv = document.getElementById('lettersDiv');
 var hangman = document.getElementById('hangman');
+var stickyMenu = document.querySelector('.stickyMenu');
 
 
 /********************* FUNCTIONS ******************************/
@@ -133,7 +134,7 @@ function generateLetters(){
 //Show the number of lives left
 function livesDisplay(){
 	console.log(lives);
-	numberOfLives.innerHTML = "<p>You have " + lives + " lives left.</p>"
+	numberOfLives.innerHTML = lives;
 }
 
 
@@ -153,9 +154,15 @@ function gameEnding(){
 	}
 
 	setTimeout(function(){
-		gameSec.style.display = "none";
-		document.getElementById('gameOver').style.display = "block";
-	}, 300);
+		/*gameSec.style.display = "none";
+		document.getElementById('gameOver').style.display = "block";*/
+
+
+		document.getElementById('gameOver').classList.add("overlay");//adding the css to display the popup
+		document.querySelector('#gameOver>div').classList.add("popup");
+        document.getElementById('gameOver').style.display = "block";
+
+	}, 500);
 
 }
 
@@ -177,8 +184,7 @@ function init(){
 	initLettersButtons();	
 	console.log(this);
 	setDifficulty(this);
-	gameSec.style.display = "block";
-	hangman.style.display = "block";
+	hangman.style.display = "inline-block";
 	livesDisplay();
 	wordDisplay();
 
@@ -201,6 +207,9 @@ function restartGame(){
 
 //initialize the layout of the game
 function startGame(){
+	document.getElementById('gameOver').style.display = "none";
+	gameSec.style.display = "none";
+	hangman.style.display = "none";
 	addScoreToWord();
 	createDifficultyLevels();
 	generateLetters();
@@ -220,7 +229,7 @@ function chooseDifficulty(){
 function setDifficulty(level){
 	var difficulty;
 	difficultySec.style.display = "none";
-	gameSec.style.display = "block";
+	gameSec.style.display = "flex";
 
 	difficulty = level.id;
 	console.log(difficulty);
@@ -326,10 +335,42 @@ function compareLetter(wordPicked, letter){
 
 }
 
+//position of scrollbar
+function getScrollXY() {
+  var scrOfX = 0, scrOfY = 0;
+  if( typeof( window.pageYOffset ) == 'number' ) {
+    //Netscape compliant
+    scrOfY = window.pageYOffset;
+    scrOfX = window.pageXOffset;
+  } else if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {
+    //DOM compliant
+    scrOfY = document.body.scrollTop;
+    scrOfX = document.body.scrollLeft;
+  } else if( document.documentElement && ( document.documentElement.scrollLeft || document.documentElement.scrollTop ) ) {
+    //IE6 standards compliant mode
+    scrOfY = document.documentElement.scrollTop;
+    scrOfX = document.documentElement.scrollLeft;
+  }
+  return [ scrOfX, scrOfY ];
+}
+
+//menu fixed et smaller onscroll
+function onScrollStickyMenu(){
+	var scroll = getScrollXY();
+	console.log(scroll);
+	if (scroll[1] >= 10){
+	    stickyMenu.classList.add('smaller');
+	} 
+	else { 
+	    stickyMenu.classList.remove('smaller');
+	}
+}
+
 
 /******************************* MAIN CODE *************************************/
 
 window.addEventListener('DOMContentLoaded', function(){
 	startGame();
 	document.getElementById('restart').addEventListener('click', restartGame);
+	window.addEventListener("scroll", onScrollStickyMenu);
 });

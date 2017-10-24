@@ -4,23 +4,60 @@
 	<title>Hangman</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script src="js/canvas.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-	<h1>Hangman</h1>
-	<canvas id="hangman" width="350" height="450">
-		Please update your browser to fully enjoy the game =)
-	</canvas>
+	<header class="stickyMenu">
+		<h1>Hangman</h1>
+	</header>
+	
+	
 	<main class="container">
 		<section id="difficultySec">
-			<button value="Easy" type="button" id="1">Easy</button>
-			<button value="Medium" type="button" id="2">Medium</button>
-			<button value="Hard" type="button" id="3">Hard</button>
+			<section id="difficultyChoice">
+				<button value="Easy" type="button" id="1">Easy</button>
+				<button value="Medium" type="button" id="2">Medium</button>
+				<button value="Hard" type="button" id="3">Hard</button>
+			</section>
+			<section id="rules">
+				<h2>
+					Rules
+				</h2>
+				<p>
+					<ul>
+						<li>
+							Choose a level of difficulty.
+						</li>
+						<li>
+							Start guessing the word based on the number of letters represented by the blanks.
+							One letter will be displayed at the beginning to give you a hint.
+						</li>
+						<li>
+							Click on the first letter you think you've guessed and see what happens...
+						</li>
+						<li>
+							Repeat until you win or until you got the man hanged ;)
+						</li>
+					</ul>
+				</p>
+			</section>
 		</section>
 
+
 		<section id="gameSec">
+			<section>
+				<section id="numberOfLives">
+					<h2>Lives</h2>
+					<p></p>
+				</section>
+				<canvas id="hangman" width="350" height="450">
+					Please update your browser to fully enjoy the game =)
+				</canvas>
+			</section>
+			<section>
 				<section id="wordDisplaySec">
 				
 				</section>
@@ -29,20 +66,22 @@
 						
 					</div>
 				</section>
-				<section id="numberOfLives">
-					
-				</section>
+			</section>
 		</section>
 
 		<section id="gameOver">
 			<div>
-				
+				<div id="gameOverMess">
+					
+				</div>
+				<button value="Try again" type="button" id="restart">Try again</button>
 			</div>
-			<button value="Try again" type="button" id="restart">Try again</button>
 		</section>
 		
 	</main>
-
+	<footer>
+		<p>Made by <a href="https://github.com/Ana-elle" target="_blank">Ana-elle</a></p>
+	</footer>
 	<script src="js/main.js"></script>
 </body>
 </html>

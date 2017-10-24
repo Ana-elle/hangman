@@ -1,35 +1,89 @@
 body{
 	font-family: 'Roboto', 'arial', sans-serif;
+	background-color: #e8fffb;
+}
+
+/*header*/
+.stickyMenu{
+	padding: 50px;
+	margin-bottom: 40px;
+	background-color: #3bdbc6;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	transition-duration: 0.5s;
+}
+
+footer{
+	padding: 50px;
+	background-color: #3bdbc6;
+	text-align: center;
+	color: #e8fffb;
+}
+
+.smaller{
+	padding: 8px;
+	margin-bottom: 20px;
+	transition-duration: 0.5s;
+}
+
+.smaller h1{
+	font-size: 2rem;
+	text-align: left;
 }
 
 h1{
 	text-align: center;
-	padding: 50px;
-	margin-bottom: 40px;
-	font-size: 3rem;
+	font-size: 4rem;
+	color: #e8fffb;
+	font-family: 'Architects Daughter', cursive;
+	text-transform: uppercase;
 }
 
 .container{
 	margin-left: auto;
 	margin-right: auto;
-	width: 80%;
+	width: 90%;
 }
 
 main{
-	text-align: center;
+	margin-top: 180px;
 }
 
 .keyboard{
-	width : 50%;
+	width : 80%;
 	margin-right: auto;
 	margin-left: auto;
-	background-color: #ededed;
 	padding: 40px;
-	border-radius: 10px;
 }
 
-#gameSec, #gameOver{
-	display: none;
+#numberOfLives h2{
+	margin: 10px;
+	display: inline-block;
+}
+
+#numberOfLives p{
+	display: inline-block;
+	border: 1px solid black;
+	padding: 20px;
+	margin: 10px;
+	font-weight: bold;
+	font-size: 2rem;
+}
+
+#gameSec{
+	display: flex;
+	justify-content: space-around;
+	text-align: center;
+}
+
+#gameSec>section:first-child{
+	flex: 1;
+}
+
+#gameSec>section:nth-child(2){
+	flex: 2;
 }
 
 button{
@@ -45,12 +99,15 @@ button[disabled]{
 	cursor: default;
 }
 
-#difficultySec{
+#difficultyChoice{
 	margin: 40px;
 	padding: 40px;
+	display: flex;
+	justify-content: space-around;
 }
 
-#difficultySec button, #gameOver button{
+#difficultyChoice button, #gameOver button{
+	width: 10rem;
 	font-size: 1.2rem;
 	padding: 20px 25px;
 	margin: 40px 10px;
@@ -59,23 +116,22 @@ button[disabled]{
 }
 
 #lettersDiv button{
-	padding: 5px 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	margin: 8px;
 	font-size: 1.1rem;
 	border-radius: 5px;
+	width: 3rem;
 }
 
 #wordDisplaySec{
 	font-size: 3rem;
-	margin: 30px;
 	padding: 20px;
+	text-align: center;
 }
 
-#hangman{
-	position: absolute;
-	left: 50px;
-	top: 120px;
-	display: none;
+#gameOver{
+	text-align: center;
 }
 
 #gameOver p{
@@ -92,4 +148,60 @@ button[disabled]{
 	color: #722872;
 	font-size: 2.5rem;
 	display: block;
+}
+
+#hangman{
+	width: 80%;
+}
+
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 1;
+    z-index: 1001;
+}
+
+.popup {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20%; /* poussé de la moitié de hauteur de viewport */
+    transform: translateY(-50%);
+    padding: 30px;
+    background: #fff;
+    border-radius: 5px;
+    width: 60%;
+    position: relative;
+}
+
+#rules{
+	text-align: left;
+}
+
+#rules h2{
+	color: #382266;
+}
+
+@media screen and (max-width: 1024px){
+
+}
+
+@media screen and (max-width: 600px){
+	#gameSec{
+		flex-direction: column-reverse;
+	}
+
+	#gameSec>section:first-child{
+		flex: 1;
+	}
+
+	#gameSec>section:nth-child(2){
+		flex: 1;
+	}	
 }
