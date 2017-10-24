@@ -1,6 +1,11 @@
+html {
+	font-size: 62.5%;
+} 
+
 body{
 	font-family: 'Roboto', 'arial', sans-serif;
 	background-color: #e8fffb;
+	font-size: 1.2em;
 }
 
 /*header*/
@@ -29,13 +34,13 @@ footer{
 }
 
 .smaller h1{
-	font-size: 2rem;
+	font-size: 2em;
 	text-align: left;
 }
 
 h1{
 	text-align: center;
-	font-size: 4rem;
+	font-size: 4em;
 	color: #e8fffb;
 	font-family: 'Architects Daughter', cursive;
 	text-transform: uppercase;
@@ -44,7 +49,7 @@ h1{
 .container{
 	margin-left: auto;
 	margin-right: auto;
-	width: 90%;
+	width: 80%;
 }
 
 main{
@@ -69,13 +74,15 @@ main{
 	padding: 20px;
 	margin: 10px;
 	font-weight: bold;
-	font-size: 2rem;
+	font-size: 2em;
 }
 
 #gameSec{
 	display: flex;
+	flex-direction: row;
 	justify-content: space-around;
 	text-align: center;
+	flex-wrap: wrap;
 }
 
 #gameSec>section:first-child{
@@ -107,9 +114,9 @@ button[disabled]{
 }
 
 #difficultyChoice button, #gameOver button{
-	width: 10rem;
-	font-size: 1.2rem;
-	padding: 20px 25px;
+	width: 10em;
+	font-size: 1.8em;
+	padding: 20px 0;
 	margin: 40px 10px;
 	box-shadow: 1px 1px 1px 0px gray;
 	border-radius: 10px;
@@ -119,13 +126,13 @@ button[disabled]{
 	padding-top: 5px;
 	padding-bottom: 5px;
 	margin: 8px;
-	font-size: 1.1rem;
+	font-size: 1.5em;
 	border-radius: 5px;
-	width: 3rem;
+	width: 3em;
 }
 
 #wordDisplaySec{
-	font-size: 3rem;
+	font-size: 3em;
 	padding: 20px;
 	text-align: center;
 }
@@ -139,14 +146,14 @@ button[disabled]{
 }
 
 #gameOver p:first-of-type{
-	font-size: 2.5rem;
+	font-size: 2.5em;
 	font-weight: bold;
 	color: #d37ed2;
 }
 
 .highlight{
 	color: #722872;
-	font-size: 2.5rem;
+	font-size: 2.5em;
 	display: block;
 }
 
@@ -186,11 +193,15 @@ button[disabled]{
 
 #rules h2{
 	color: #382266;
+	margin: 15px 0;
 }
 
-@media screen and (max-width: 1024px){
-
+#rules li{
+	margin: 10px;
+	text-align: justify;
+	font-size: 1em;
 }
+
 
 @media screen and (max-width: 600px){
 	#gameSec{
