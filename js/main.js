@@ -221,8 +221,11 @@ function startGame(){
 //eventlisteners
 function chooseDifficulty(){
 	document.getElementById('1').addEventListener("click", init);
+	document.getElementById('1').addEventListener("touchstart", init);
 	document.getElementById('2').addEventListener("click", init);
-	document.getElementById('3').addEventListener("click", init);	
+	document.getElementById('2').addEventListener("touchstart", init);
+	document.getElementById('3').addEventListener("click", init);
+	document.getElementById('3').addEventListener("touchstart", init);
 }
 
 //Set parameters of the level of difficulty chosen
