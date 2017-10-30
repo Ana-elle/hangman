@@ -181,13 +181,16 @@ function init(){
 	result = "";
 	result2 = "";
 	lives = "11";
+
+	stickyMenu.classList.add('smaller');
+	document.querySelector('main').style.marginTop = "100px";
+
 	initLettersButtons();	
 	console.log(this);
 	setDifficulty(this);
 	hangman.style.display = "inline-block";
 	livesDisplay();
 	wordDisplay();
-
 }
 
 //eventlistener when click on letters
@@ -338,36 +341,9 @@ function compareLetter(wordPicked, letter){
 
 }
 
-//position of scrollbar
-function getScrollXY() {
-  var scrOfX = 0, scrOfY = 0;
-  if( typeof( window.pageYOffset ) == 'number' ) {
-    //Netscape compliant
-    scrOfY = window.pageYOffset;
-    scrOfX = window.pageXOffset;
-  } else if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {
-    //DOM compliant
-    scrOfY = document.body.scrollTop;
-    scrOfX = document.body.scrollLeft;
-  } else if( document.documentElement && ( document.documentElement.scrollLeft || document.documentElement.scrollTop ) ) {
-    //IE6 standards compliant mode
-    scrOfY = document.documentElement.scrollTop;
-    scrOfX = document.documentElement.scrollLeft;
-  }
-  return [ scrOfX, scrOfY ];
-}
 
-//menu fixed et smaller onscroll
-function onScrollStickyMenu(){
-	var scroll = getScrollXY();
-	console.log(scroll);
-	if (scroll[1] >= 10){
-	    stickyMenu.classList.add('smaller');
-	} 
-	else { 
-	    stickyMenu.classList.remove('smaller');
-	}
-}
+
+
 
 
 /******************************* MAIN CODE *************************************/
@@ -375,5 +351,4 @@ function onScrollStickyMenu(){
 window.addEventListener('DOMContentLoaded', function(){
 	startGame();
 	document.getElementById('restart').addEventListener('click', restartGame);
-	window.addEventListener("scroll", onScrollStickyMenu);
 });
