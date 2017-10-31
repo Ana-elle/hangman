@@ -57,8 +57,8 @@ var hangman = document.getElementById('hangman');
 var stickyMenu = document.querySelector('.stickyMenu');
 
 
-/********************* FUNCTIONS ******************************/
-
+/********************************* FUNCTIONS ******************************/
+/********************* Set elements of the game *************************/
 
 //Attribute a score to each word of the database (to set levels of difficulty)
 function addScoreToWord(){
@@ -74,6 +74,25 @@ function addScoreToWord(){
 	}
 
 	console.log(wordnScore);
+}
+
+
+//creates the buttons with letters
+function generateLetters(){
+	var alphabetButtons = [];
+	var button;
+	for (var i = 0; i < 26; i++) {
+     	alphabetButtons.push(String.fromCharCode(97+i));
+	}
+
+	for (var j=0 ; j < alphabetButtons.length ; j++){
+		button = document.createElement('button');
+		button.value = alphabetButtons[j];
+		button.innerHTML = alphabetButtons[j];
+		button.dataset.id = alphabetButtons[j];
+		button.setAttribute('class', 'letterButton');
+		lettersDiv.appendChild(button);
+	}
 }
 
 //sets a score range for each level of difficulty
@@ -113,59 +132,7 @@ function createDifficultyLevels(){
 }
 
 
-//creates the buttons with letters
-function generateLetters(){
-	var alphabetButtons = [];
-	var button;
-	for (var i = 0; i < 26; i++) {
-     	alphabetButtons.push(String.fromCharCode(97+i));
-	}
-
-	for (var j=0 ; j < alphabetButtons.length ; j++){
-		button = document.createElement('button');
-		button.value = alphabetButtons[j];
-		button.innerHTML = alphabetButtons[j];
-		button.dataset.id = alphabetButtons[j];
-		button.setAttribute('class', 'letterButton');
-		lettersDiv.appendChild(button);
-	}
-}
-
-//Show the number of lives left
-function livesDisplay(){
-	console.log(lives);
-	numberOfLives.innerHTML = lives;
-}
-
-
-//show the blanks
-function wordDisplay(){
-	wordDisplaySec.innerHTML = result;
-}
-
-//function called after each round. Check if game is over and displays the result
-function gameEnding(){
-	if(lives <= 0){
-		gameOverMess.innerHTML = "<p>Game Over</p><p>The word was : <span class='highlight'>" + wordPicked +".</span></p>";
-	}
-
-	if(result2 == wordPicked){
-		gameOverMess.innerHTML = "<p><span class='highlight'>" + wordPicked + "</span></p><p>You win ! Congratulations !</p>";
-	}
-
-	setTimeout(function(){
-		/*gameSec.style.display = "none";
-		document.getElementById('gameOver').style.display = "block";*/
-
-
-		document.getElementById('gameOver').classList.add("overlay");//adding the css to display the popup
-		document.querySelector('#gameOver>div').classList.add("popup");
-        document.getElementById('gameOver').style.display = "block";
-
-	}, 500);
-
-}
-
+/***************************** Sets parameters of the game *********************************/
 //initialize the buttons with letters after each game (remove disabled)
 function initLettersButtons(){
 	var buttons = document.querySelectorAll('.letterButton');
@@ -173,53 +140,6 @@ function initLettersButtons(){
 	for(var i=0 ; i < buttons.length ; i++){
 		buttons[i].disabled = false;
 	}
-}
-
-
-//initialize app at the beginning of each game
-function init(e){
-	e.preventDefault();
-	result = "";
-	result2 = "";
-	lives = "11";
-
-	stickyMenu.classList.add('smaller');
-	document.querySelector('main').style.marginTop = "100px";
-
-	initLettersButtons();	
-	console.log(this);
-	setDifficulty(this);
-	hangman.style.display = "inline-block";
-	livesDisplay();
-	wordDisplay();
-}
-
-//eventlistener when click on letters
-function onClickPlayRound(e){
-	if(e.target.nodeName.toLowerCase() === 'button'){
-		playRound(e);
-	}
-}
-
-//reinitialize the game
-function restartGame(){
-	document.getElementById('gameOver').style.display = "none";
-	gameSec.style.display = "none";
-	hangman.style.display = "none";
-	difficultySec.style.display = "block";
-}
-
-//initialize the layout of the game
-function startGame(){
-	document.getElementById('gameOver').style.display = "none";
-	gameSec.style.display = "none";
-	hangman.style.display = "none";
-	addScoreToWord();
-	createDifficultyLevels();
-	generateLetters();
-	chooseDifficulty();
-	createCanvas();
-	lettersDiv.addEventListener('click', onClickPlayRound);
 }
 	
 //eventlisteners
@@ -291,33 +211,20 @@ function turnToBlanks(wordPicked){
 	$("button[data-id="+vowel+"]").trigger("click", onClickPlayRound);
 }
 
-//disables letters already tried
-function disableLetter(letterValue){
-	letterValue.target.disabled = true;
-	//letterValue.disabled = true;
-}
 
-
-//plays 1 round
-function playRound(e){
-	console.log(e.target.innerHTML);
-	getLetter(e);
-	disableLetter(e);
-	compareLetter(wordPicked, letter);
-	drawCanvas();
-	wordDisplay();
-	livesDisplay();
-	
-	result2 = result.replace(/ /gi, "");
-	if(lives <= 0 || result2 == wordPicked){
-		gameEnding();
-	}
-}
+/**************************** Game rounds **********************************/
 
 //gets the value of the letter typed by player
 function getLetter(letterValue){
 	letter = letterValue.target.innerHTML;
 	//letter = letterValue.innerHTML;	
+}
+
+
+//disables letters already tried
+function disableLetter(letterValue){
+	letterValue.target.disabled = true;
+	//letterValue.disabled = true;
 }
 
  
@@ -342,20 +249,130 @@ function compareLetter(wordPicked, letter){
 
 }
 
+
+//function called after each round. Check if game is over and displays the result
+function gameEnding(){
+	if(lives <= 0){
+		gameOverMess.innerHTML = "<p>Game Over</p><p>The word was : <span class='highlight'>" + wordPicked +"</span></p>";
+	}
+
+	if(result2 == wordPicked){
+		gameOverMess.innerHTML = "<p><span class='highlight'>" + wordPicked + "</span></p><p>You win ! Congratulations !</p>";
+	}
+
+	setTimeout(function(){
+		/*gameSec.style.display = "none";
+		document.getElementById('gameOver').style.display = "block";*/
+
+
+		document.getElementById('gameOver').classList.add("overlay");//adding the css to display the popup
+		document.querySelector('#gameOver>div').classList.add("popup");
+        document.getElementById('gameOver').style.display = "block";
+
+	}, 500);
+
+}
+
+
+//Show the number of lives left
+function livesDisplay(){
+	console.log(lives);
+	numberOfLives.innerHTML = lives;
+}
+
+
+//show the blanks
+function wordDisplay(){
+	wordDisplaySec.innerHTML = result;
+}
+
+
+/********************************* main functions *********************************/
+
+//initialize app at the beginning of each game
+function init(e){
+	e.preventDefault();
+	result = "";
+	result2 = "";
+	lives = "11";
+
+	stickyMenu.classList.add('smaller');
+	document.getElementById('restartSec').style.display = "block";
+	document.querySelector('main').style.marginTop = "10px";
+
+	initLettersButtons();	
+	console.log(this);
+	setDifficulty(this);
+	hangman.style.display = "inline-block";
+	livesDisplay();
+	wordDisplay();
+}
+
+
+//eventlistener when click on letters
+function onClickPlayRound(e){
+	if(e.target.nodeName.toLowerCase() === 'button'){
+		playRound(e);
+	}
+}
+
+
+//plays 1 round
+function playRound(e){
+	console.log(e.target.innerHTML);
+	getLetter(e);
+	disableLetter(e);
+	compareLetter(wordPicked, letter);
+	drawCanvas();
+	wordDisplay();
+	livesDisplay();
+	
+	result2 = result.replace(/ /gi, "");
+	if(lives <= 0 || result2 == wordPicked){
+		gameEnding();
+	}
+}
+
+
+//reinitialize the game
+function restartGame(){
+	document.getElementById('gameOver').style.display = "none";
+	document.getElementById('restartSec').style.display = "none";
+	gameSec.style.display = "none";
+	hangman.style.display = "none";
+	difficultySec.style.display = "block";
+	document.querySelector('main').style.marginTop = "80px";
+}
+
+
+//initialize the layout of the game
+function startGame(){
+	document.getElementById('gameOver').style.display = "none";
+	gameSec.style.display = "none";
+	hangman.style.display = "none";
+	addScoreToWord();
+	createDifficultyLevels();
+	generateLetters();
+	chooseDifficulty();
+	createCanvas();
+	lettersDiv.addEventListener('click', onClickPlayRound);
+}
+
+
+
+/******************************** browser compatibiity ***************************************/
 function browserUpdatePopup(){
 	var isSamsungBrowser = navigator.userAgent.match(/SamsungBrowser/i);
 	if(isSamsungBrowser == true){
 		console.log('je suis un samsung browser');
-		var browserUpdateDiv = document.querySelector('browserUpdate>div');
+		var browserUpdateDiv = document.querySelector('#browserUpdate>div');
 		var browserUpdateSection = document.getElementById('browserUpdate');
 		browserUpdateDiv.innerHTML = "Ce site est optimisé pour des navigateurs plus récents, veuillez passer sous Chrome ou mettre à jour votre navigateur";
 		browserUpdateSection.classList.add("overlay");//adding the css to display the popup
 		browserUpdateDiv.classList.add("popup");
 	    browserUpdateSection.style.display = "block";
-	    
 	}
 }
-
 
 
 
@@ -366,4 +383,5 @@ window.addEventListener('DOMContentLoaded', function(){
 
 	startGame();
 	document.getElementById('restart').addEventListener('click', restartGame);
+	document.getElementById('newGame').addEventListener('click', restartGame);
 });

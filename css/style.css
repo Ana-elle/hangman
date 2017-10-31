@@ -72,11 +72,12 @@ main{
 
 #numberOfLives p{
 	display: inline-block;
-	border: 1px solid black;
+	border-radius: 2px;
 	padding: 20px;
 	margin: 10px;
 	font-weight: bold;
 	font-size: 2em;
+	background-color: #3bdbc6;
 }
 
 #gameSec{
@@ -89,6 +90,7 @@ main{
 
 #gameSec>section:first-child{
 	flex: 1;
+	text-align: right;
 }
 
 #gameSec>section:nth-child(2){
@@ -131,6 +133,18 @@ button[disabled]{
 	font-size: 2em;
 	border-radius: 5px;
 	width: 3em;
+}
+
+#restartSec{
+	display: none;
+}
+
+#newGame{
+	font-size: 1.5em;
+	padding: 10px 20px;
+	margin: 0 10px;
+	border-radius: 2px;
+	margin-top: 80px;
 }
 
 #wordDisplaySec{
@@ -189,6 +203,7 @@ button[disabled]{
     border-radius: 5px;
     width: 60%;
     position: relative;
+    text-align: center;
 }
 
 #rules{
@@ -261,7 +276,7 @@ button[disabled]{
 		flex-direction: column-reverse;
 	}
 
-	#gameSec>section:first-child{
+	#gameSec>section:first-of-type{
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;
@@ -269,7 +284,7 @@ button[disabled]{
 		padding-bottom: 50px;
 	}
 
-	#gameSec>section:nth-child(2){
+	#gameSec>section:nth-of-type(2){
 		flex: 1;
 	}
 
