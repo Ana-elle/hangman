@@ -177,7 +177,8 @@ function initLettersButtons(){
 
 
 //initialize app at the beginning of each game
-function init(){
+function init(e){
+	e.preventDefault();
 	result = "";
 	result2 = "";
 	lives = "11";
@@ -341,7 +342,19 @@ function compareLetter(wordPicked, letter){
 
 }
 
-
+function browserUpdatePopup(){
+	var isSamsungBrowser = navigator.userAgent.match(/SamsungBrowser/i);
+	if(isSamsungBrowser == true){
+		console.log('je suis un samsung browser');
+		var browserUpdateDiv = document.querySelector('browserUpdate>div');
+		var browserUpdateSection = document.getElementById('browserUpdate');
+		browserUpdateDiv.innerHTML = "Ce site est optimisé pour des navigateurs plus récents, veuillez passer sous Chrome ou mettre à jour votre navigateur";
+		browserUpdateSection.classList.add("overlay");//adding the css to display the popup
+		browserUpdateDiv.classList.add("popup");
+	    browserUpdateSection.style.display = "block";
+	    
+	}
+}
 
 
 
@@ -349,6 +362,8 @@ function compareLetter(wordPicked, letter){
 /******************************* MAIN CODE *************************************/
 
 window.addEventListener('DOMContentLoaded', function(){
+	browserUpdatePopup();
+
 	startGame();
 	document.getElementById('restart').addEventListener('click', restartGame);
 });
