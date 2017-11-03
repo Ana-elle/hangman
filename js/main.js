@@ -1,6 +1,6 @@
 'use strict';
 
-/***************** VARIABLES ****************************/
+/************************************* VARIABLES **********************************************/
 var words = ["abrupt", "absurd", "avenue", "awkward", "banjo", "bayou", "bikini", "blitz", "blizzard", "buffalo", "buzzing", "cycle", "daiquiri", "dizzy", "dwarf", "fishhook", "fixable", "fjord", "flabbergasted", "fuchsia", "funny", "galaxy", "gossip", "hyphen", "icebox", "injury", "ivory", "ivy", "jackpot", "jawbreaker", "jaywalk", "jazzy", "jelly", "jinx", "jockey", "jogging", "joking", "jovial", "joyful", "juicy", "jukebox", "jumbo", "kayak", "kazoo", "keyhole", "khaki", "kiosk", "length", "lucky", "luxury", "marquis", "matrix", "megahertz", "microwave", "mystify", "nightclub", "nowadays", "onyx", "oxygen", "pajama", "pixel", "pneumonia", "psychopath", "puppy", "puzzled", "quartz", "queue", "reliable", "rhubarb", "rhythm", "scratch", "sociopath", "sphinx", "spritz", "staff", "strength", "stretch", "stronghold", "subway", "syndrome", "transcript", "transgress", "transplant", "trustworthy", "twelfth", "unknown", "unworthy", "unzip", "uptown", "vaporize", "vodka", "voodoo", "vortex", "walkway", "waltz", "wave", "wax", "whiskey", "wimpy", "witchcraft", "wizard", "wrist", "yacht", "youth", "yummy", "zigzag", "zipper", "zodiac", "zombie" ]; // array of words to guess
 
 var alphabet = { 
@@ -57,7 +57,8 @@ var hangman = document.getElementById('hangman');
 var stickyMenu = document.querySelector('.stickyMenu');
 
 
-/********************************* FUNCTIONS ******************************/
+/************************************* FUNCTIONS *************************************************/
+
 /********************* Set elements of the game *************************/
 
 //Attribute a score to each word of the database (to set levels of difficulty)
@@ -359,28 +360,9 @@ function startGame(){
 }
 
 
-
-/******************************** browser compatibiity ***************************************/
-function browserUpdatePopup(){
-	var isSamsungBrowser = navigator.userAgent.match(/SamsungBrowser/i);
-	if(isSamsungBrowser == true){
-		console.log('je suis un samsung browser');
-		var browserUpdateDiv = document.querySelector('#browserUpdate>div');
-		var browserUpdateSection = document.getElementById('browserUpdate');
-		browserUpdateDiv.innerHTML = "Ce site est optimisé pour des navigateurs plus récents, veuillez passer sous Chrome ou mettre à jour votre navigateur";
-		browserUpdateSection.classList.add("overlay");//adding the css to display the popup
-		browserUpdateDiv.classList.add("popup");
-	    browserUpdateSection.style.display = "block";
-	}
-}
-
-
-
-/******************************* MAIN CODE *************************************/
+/**************************************** MAIN CODE **************************************************/
 
 window.addEventListener('DOMContentLoaded', function(){
-	browserUpdatePopup();
-
 	startGame();
 	document.getElementById('restart').addEventListener('click', restartGame);
 	document.getElementById('newGame').addEventListener('click', restartGame);
