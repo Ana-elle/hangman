@@ -125,11 +125,6 @@ function createDifficultyLevels(){
 			wordsByLevel.level3.push(prop);
 		}
 	}
-	console.log(wordsByLevel);
-	console.log(wordsByLevel.level1.length);
-	console.log(wordsByLevel.level2.length);
-	console.log(wordsByLevel.level2.length);
-	console.log(words.length);
 }
 
 
@@ -191,25 +186,71 @@ function chooseWord (level) {
     console.log(wordPicked);
 }
 
-//turns the word to blanks except one letter that will be shown from the beginning
+//turns the word to blanks except one vowel that will be shown from the beginning
 function turnToBlanks(wordPicked){
 
 	var vowels = ["a", "e", "i", "o", "u", "y"];
-	var index;
+	var wordVowels = [];
 	var vowel;
+	var randomVowel;
+	var vowelButton;
 
+	//turn the word that was picked to blanks
 	for(var i=0 ; i < wordPicked.length ; i++){
 		result += "_ ";
 	}
 
+	//create a new array with only the vowels that are in the word
 	for(var j=0 ; j < vowels.length ; j++){
 		if(wordPicked.includes(vowels[j])){
-			vowel = vowels[j];
-			break;
+			wordVowels.push(vowels[j]);
 		}
 	}
 
-	$("button[data-id="+vowel+"]").trigger("click", onClickPlayRound);
+	//select a random vowel in the word
+	randomVowel = Math.floor((Math.random()*wordVowels.length));
+	vowel = wordVowels[randomVowel];
+	vowelButton = document.querySelector('button[data-id='+vowel+']');
+
+	//display that vowel when launching the game
+	simulateClick(vowelButton);
+}
+
+function simulateClick(elem){
+	// Create our event
+    var evt = new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        view: window
+    });
+
+    // If cancelled, don't dispatch our event
+    var canceled = !elem.dispatchEvent(evt);
+}
+
+//allow to play with keyboard
+function onKeyUpTriggerClick(){
+
+  	if(event.keyCode >= 65 && event.keyCode <= 90){
+
+		var keyValue = event.key;
+		var letterButton = document.querySelector('button[data-id='+keyValue+']');
+
+		if(letterButton.disabled == false) {
+			simulateClick(letterButton);
+		}
+
+		else {
+			return;
+		}
+  	}
+
+  	if(document.getElementById('gameOver').style.display == 'block'){
+  		if(event.keyCode == 13){
+  			var enterButton = document.getElementById('restart');
+  			simulateClick(enterButton);
+  		}
+  	}
 }
 
 
@@ -362,8 +403,9 @@ function startGame(){
 
 /**************************************** MAIN CODE **************************************************/
 
-window.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function(){
 	startGame();
 	document.getElementById('restart').addEventListener('click', restartGame);
 	document.getElementById('newGame').addEventListener('click', restartGame);
+	window.addEventListener('keyup', onKeyUpTriggerClick);
 });

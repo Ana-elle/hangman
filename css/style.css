@@ -4,15 +4,19 @@ html {
 
 body{
 	font-family: 'Roboto', 'arial', sans-serif;
-	background-color: #e8fffb;
+	background-color: #e1e2e1;
 	font-size: 1.2em;
 }
 
 /*header*/
+
+header, footer{
+	background-color: #303F9F;
+}
+
 .stickyMenu{
 	padding: 50px;
 	margin-bottom: 40px;
-	background-color: #3bdbc6;
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -23,7 +27,6 @@ body{
 
 footer{
 	padding: 50px;
-	background-color: #3bdbc6;
 	text-align: center;
 	color: #e8fffb;
 	margin-top: 50px;
@@ -43,7 +46,7 @@ footer{
 h1{
 	text-align: center;
 	font-size: 4em;
-	color: #e8fffb;
+	color: white;
 	font-family: 'Architects Daughter', cursive;
 	text-transform: uppercase;
 }
@@ -72,12 +75,13 @@ main{
 
 #numberOfLives p{
 	display: inline-block;
-	border-radius: 2px;
+	border-radius: 10px;
 	padding: 20px;
 	margin: 10px;
 	font-weight: bold;
 	font-size: 2em;
-	background-color: #3bdbc6;
+	background-color: #FF5252;
+	color: white;
 }
 
 #gameSec{
@@ -98,16 +102,20 @@ main{
 }
 
 button{
-	border: 1px solid #d37ed2;
-	background-color: #d37ed2;
-	color: white;
 	cursor: pointer;
+	border-style: none;
 }
 
-button[disabled]{
-	background-color: gray;
-	border-color: gray;
+#lettersDiv button:disabled, button[disabled]:hover{
+	background-color: inherit;
+	border-color: inherit;
 	cursor: default;
+	border-style: unset;
+	color: #BDBDBD;
+}
+
+#difficultySec{
+	height: 80vh;
 }
 
 #difficultyChoice{
@@ -117,13 +125,34 @@ button[disabled]{
 	justify-content: space-around;
 }
 
+#difficultyChoice button, #gameOver button, #newGame{
+	-webkit-box-shadow: 0 3px 9px rgba(8,33,30,0.15);
+	-moz-box-shadow: 0 3px 9px rgba(8,33,30,0.15);
+	box-shadow: 0 3px 9px rgba(8,33,30,0.15);
+	background-color: #FF5252;
+	border: 1px solid #FF5252;
+	color: white;
+}
+
 #difficultyChoice button, #gameOver button{
 	width: 10em;
 	font-size: 1.8em;
 	padding: 20px;
 	margin: 40px 10px;
-	box-shadow: 1px 1px 1px 0px gray;
 	border-radius: 10px;
+}
+
+#newGame{
+	font-size: 1.5em;
+	padding: 18px 24px;
+	margin: 0 10px;
+	border-radius: 2px;
+	margin-top: 80px;
+}
+
+#difficultyChoice button:hover, #gameOver button:hover, #newGame:hover{
+	background-color: inherit;
+	color: #FF5252;
 }
 
 #lettersDiv button{
@@ -131,20 +160,23 @@ button[disabled]{
 	padding-bottom: 5px;
 	margin: 8px;
 	font-size: 2em;
-	border-radius: 5px;
 	width: 3em;
+	background-color: inherit;
+	border: 1px solid #FF5252;
+	border-radius: 5px;
+}
+
+
+#lettersDiv button:hover:enabled{
+	background-color: #FF5252;
+	color: white;
+	-webkit-box-shadow: 0 3px 9px rgba(8,33,30,0.15);
+	-moz-box-shadow: 0 3px 9px rgba(8,33,30,0.15);
+	box-shadow: 0 3px 9px rgba(8,33,30,0.15);
 }
 
 #restartSec{
 	display: none;
-}
-
-#newGame{
-	font-size: 1.5em;
-	padding: 10px 20px;
-	margin: 0 10px;
-	border-radius: 2px;
-	margin-top: 80px;
 }
 
 #wordDisplaySec{
@@ -159,24 +191,26 @@ button[disabled]{
 
 #gameOver p{
 	padding: 20px 0;
+	font-size: 2em;
 }
 
 #gameOver p:first-of-type{
-	font-size: 2.5em;
+	font-size: 3.5em;
 	font-weight: bold;
-	color: #d37ed2;
+	color: #303F9F;
 }
 
 .highlight{
-	color: #722872;
-	font-size: 2.5em;
+	color: #303F9F;
+	font-size: 1.5em;
 	display: block;
+	font-weight: bold;
+	margin-top: 10px;
 }
 
 #hangman{
 	width: 80%;
 }
-
 
 .overlay {
     position: fixed;
