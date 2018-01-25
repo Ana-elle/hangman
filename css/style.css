@@ -290,8 +290,8 @@ button{
 		margin-top: 80px;
 	}
 
-	footer{
-		margin-top: 0;
+	#difficultySec{
+		height: initial;
 	}
 
 	#difficultyChoice{
