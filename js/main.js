@@ -41,19 +41,23 @@ var result2 = ""; //word with blanks & letters guessed
 var lives = ""; //number of attempts available
 var letter; //letter tried on 1 round
 
-var canvas = document.getElementById('hangman');
-var context;
+var canvas1 = document.getElementById('flowerCenter');
+var canvas2 = document.getElementById('flowerLayer1');
+var canvas3 = document.getElementById('flowerLayer2');
+var context1;
+var context2;
+var context3;
 
 
 //HTML elements
 var difficultySec = document.getElementById('difficultySec');
 var gameSec = document.getElementById('gameSec');
-var numberOfLives = document.querySelector('#numberOfLives p');
+var numberOfLives = document.querySelector('.livesCount');
 var wordDisplaySec = document.getElementById('wordDisplaySec');
 var letterSec = document.querySelector('#letterSec div')
 var gameOverMess = document.getElementById('gameOverMess');
 var lettersDiv = document.getElementById('lettersDiv');
-var hangman = document.getElementById('hangman');
+var hangman = document.getElementById('canvasHangman');
 var stickyMenu = document.querySelector('.stickyMenu');
 
 
@@ -140,12 +144,12 @@ function initLettersButtons(){
 	
 //eventlisteners
 function chooseDifficulty(){
-	document.getElementById('1').addEventListener("click", init);
-	document.getElementById('1').addEventListener("touchstart", init);
-	document.getElementById('2').addEventListener("click", init);
-	document.getElementById('2').addEventListener("touchstart", init);
-	document.getElementById('3').addEventListener("click", init);
-	document.getElementById('3').addEventListener("touchstart", init);
+	const tab = [1,2,3];
+  let tab2 = tab.map(function(index){
+    let elemt = document.getElementById(index);
+    elemt.addEventListener("click", init);
+    elemt.addEventListener("touchstart", init);
+  });
 }
 
 //Set parameters of the level of difficulty chosen
@@ -270,7 +274,7 @@ function disableLetter(letterValue){
 }
 
  
-//replaces blanks by letter found
+//checks if letter exists in word, replaces blanks by letter found or removes life if not
 function compareLetter(wordPicked, letter){
 	if (wordPicked.includes(letter)){
 		var i=0;
@@ -309,7 +313,7 @@ function gameEnding(){
 
 		document.getElementById('gameOver').classList.add("overlay");//adding the css to display the popup
 		document.querySelector('#gameOver>div').classList.add("popup");
-        document.getElementById('gameOver').style.display = "block";
+    document.getElementById('gameOver').style.display = "block";
 
 	}, 500);
 
@@ -345,7 +349,8 @@ function init(e){
 	initLettersButtons();	
 	console.log(this);
 	setDifficulty(this);
-	hangman.style.display = "inline-block";
+	hangman.style.display = "flex";
+  initializeCanvas();
 	livesDisplay();
 	wordDisplay();
 }
@@ -365,7 +370,7 @@ function playRound(e){
 	getLetter(e);
 	disableLetter(e);
 	compareLetter(wordPicked, letter);
-	drawCanvas();
+  drawCanvas();
 	wordDisplay();
 	livesDisplay();
 	
@@ -383,7 +388,8 @@ function restartGame(){
 	gameSec.style.display = "none";
 	hangman.style.display = "none";
 	difficultySec.style.display = "block";
-	document.querySelector('main').style.marginTop = "80px";
+  stickyMenu.classList.remove('smaller');
+	document.querySelector('main').style.marginTop = "180px";
 }
 
 

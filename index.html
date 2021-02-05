@@ -5,14 +5,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Hangman</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script src="js/canvas.js"></script>
 </head>
 <body>
 	<header class="stickyMenu">
-		<h1>Hangman</h1>
+		<h1>Hangman - Flower version</h1>
 	</header>
 	
 	<section id="restartSec" class="container">
@@ -35,15 +36,16 @@
 							Choose a level of difficulty.
 						</li>
 						<li>
-							Start guessing the word based on the number of letters represented by the blanks.
-							One letter will be displayed at the beginning to give you a hint.
+							The goal is to guess the word where each letter is represented by a blank space.
+							One letter will be displayed at the beginning to help you get started.
 						</li>
 						<li>
-							Click on the first letter you think you've guessed and see what happens...
+							Guess your first letter and click on it thanks to the virtual keyboard on the screen.
 						</li>
 						<li>
-							Repeat until you win or until you got the man hanged ;)
+							If you guessed correctly, the letter will appear in (all) the blank space(s) it belongs to. If you guessed an incorrect letter, the flower will loose a petal or a leaf.
 						</li>
+						<li>The goal is to guess the word before the flower lost all its petals!</li>
 					</ul>
 				</p>
 			</section>
@@ -53,12 +55,18 @@
 		<section id="gameSec">
 			<section>
 				<section id="numberOfLives">
-					<h2>Lives</h2>
-					<p></p>
+					<p class="livesCount"></p>
+					<p>lives</p>
+					
 				</section>
 				<section id="canvasHangman">
-					<canvas id="hangman" width="350" height="450">
+
+					<canvas id="flowerCenter" class="hangman" width="600" height="650">
 						Please update your browser to fully enjoy the game =)
+					</canvas>
+					<canvas id="flowerLayer1" class="hangman" width="600" height="650">
+					</canvas>
+					<canvas id="flowerLayer2" class="hangman" width="600" height="650">
 					</canvas>
 				</section>
 			</section>

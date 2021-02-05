@@ -4,14 +4,15 @@ html {
 
 body{
 	font-family: 'Roboto', 'arial', sans-serif;
-	background-color: #e1e2e1;
+	background-color: #FEF9EF;
 	font-size: 1.2em;
+	color: #202632;
 }
 
 /*header*/
 
 header, footer{
-	background-color: #303F9F;
+	background-color: #FFC300;
 }
 
 .stickyMenu{
@@ -28,7 +29,7 @@ header, footer{
 footer{
 	padding: 50px;
 	text-align: center;
-	color: #e8fffb;
+	color: #282F3E;
 	margin-top: 50px;
 }
 
@@ -45,10 +46,10 @@ footer{
 
 h1{
 	text-align: center;
-	font-size: 4em;
-	color: white;
-	font-family: 'Architects Daughter', cursive;
-	text-transform: uppercase;
+	font-size: 4rem;
+	color: #202632;
+	font-family: 'Lora', serif;	
+	letter-spacing: 3px;
 }
 
 .container{
@@ -68,20 +69,12 @@ main{
 	padding: 40px;
 }
 
-#numberOfLives h2{
-	margin: 10px;
-	display: inline-block;
-}
-
-#numberOfLives p{
-	display: inline-block;
-	border-radius: 10px;
+#numberOfLives{
 	padding: 20px;
-	margin: 10px;
+	font-size: 1.5em;
+	color: #FF1F48;
 	font-weight: bold;
-	font-size: 2em;
-	background-color: #FF5252;
-	color: white;
+	display: none;
 }
 
 #gameSec{
@@ -94,11 +87,11 @@ main{
 
 #gameSec>section:first-child{
 	flex: 1;
-	text-align: right;
+	text-align: left;
 }
 
 #gameSec>section:nth-child(2){
-	flex: 2;
+	flex: 1;
 }
 
 button{
@@ -114,9 +107,24 @@ button{
 	color: #BDBDBD;
 }
 
-#difficultySec{
-	height: 80vh;
+
+/*rules home page*/
+#rules{
+	text-align: left;
 }
+
+#rules h2{
+	margin: 15px 0;
+	color: #587291;
+}
+
+#rules li{
+	margin: 10px;
+	text-align: justify;
+	font-size: 1.2em;
+}
+
+/*difficulty level selection - home page*/
 
 #difficultyChoice{
 	margin: 40px;
@@ -129,8 +137,8 @@ button{
 	-webkit-box-shadow: 0 3px 9px rgba(8,33,30,0.15);
 	-moz-box-shadow: 0 3px 9px rgba(8,33,30,0.15);
 	box-shadow: 0 3px 9px rgba(8,33,30,0.15);
-	background-color: #FF5252;
-	border: 1px solid #FF5252;
+	background-color: #587291;
+	border: 1px solid #587291;
 	color: white;
 }
 
@@ -142,6 +150,52 @@ button{
 	border-radius: 10px;
 }
 
+#difficultyChoice button:hover, #gameOver button:hover, #newGame:hover{
+	background-color: #FF4365;
+	border: 1px solid #FF4365;
+}
+
+/* canvas section*/
+#canvasHangman{
+	flex: 1;
+	max-width:600px;
+	max-height:650px;
+	position: relative;
+	justify-content: center;
+	background-color: #FEF9EF;
+}
+
+.hangman{
+	max-width: 80%;
+	position: absolute;
+}
+
+#flowerCenter { z-index: 3; }
+#flowerLayer2 { z-index: 2; }
+#flowerLayer1 { z-index: 1; }
+
+
+/*keyboard*/
+#lettersDiv button{
+	margin: 8px;
+	padding: 5px 0;
+	font-size: 2em;
+	width: 3em;
+	background-color: #FEF9EF;
+	color: #587291;
+	border: 1px solid #587291;
+}
+
+
+#lettersDiv button:hover:enabled{
+	background-color: #364659;
+	color: white;
+	-webkit-box-shadow: 0 3px 9px rgba(8,33,30,0.15);
+	-moz-box-shadow: 0 3px 9px rgba(8,33,30,0.15);
+	box-shadow: 0 3px 9px rgba(8,33,30,0.15);
+}
+
+/*restart button*/
 #newGame{
 	font-size: 1.5em;
 	padding: 18px 24px;
@@ -150,41 +204,20 @@ button{
 	margin-top: 80px;
 }
 
-#difficultyChoice button:hover, #gameOver button:hover, #newGame:hover{
-	background-color: inherit;
-	color: #FF5252;
-}
-
-#lettersDiv button{
-	padding-top: 5px;
-	padding-bottom: 5px;
-	margin: 8px;
-	font-size: 2em;
-	width: 3em;
-	background-color: inherit;
-	border: 1px solid #FF5252;
-	border-radius: 5px;
-}
-
-
-#lettersDiv button:hover:enabled{
-	background-color: #FF5252;
-	color: white;
-	-webkit-box-shadow: 0 3px 9px rgba(8,33,30,0.15);
-	-moz-box-shadow: 0 3px 9px rgba(8,33,30,0.15);
-	box-shadow: 0 3px 9px rgba(8,33,30,0.15);
-}
-
 #restartSec{
+	text-align: right;
 	display: none;
 }
 
+/*display of the blanks - word to guess*/
 #wordDisplaySec{
 	font-size: 3em;
 	padding: 20px;
 	text-align: center;
 }
 
+
+/*game over pop-up*/
 #gameOver{
 	text-align: center;
 }
@@ -197,19 +230,15 @@ button{
 #gameOver p:first-of-type{
 	font-size: 3.5em;
 	font-weight: bold;
-	color: #303F9F;
+	color: #587291;
 }
 
 .highlight{
-	color: #303F9F;
+	color: #587291;
 	font-size: 1.5em;
 	display: block;
 	font-weight: bold;
 	margin-top: 10px;
-}
-
-#hangman{
-	width: 80%;
 }
 
 .overlay {
@@ -240,20 +269,7 @@ button{
     text-align: center;
 }
 
-#rules{
-	text-align: left;
-}
 
-#rules h2{
-	color: #382266;
-	margin: 15px 0;
-}
-
-#rules li{
-	margin: 10px;
-	text-align: justify;
-	font-size: 1.2em;
-}
 
 
 @media screen and (max-width: 1220px){
@@ -265,9 +281,6 @@ button{
 		margin-right: auto;
 		margin-left: auto;
 	}
-}
-
-@media screen and (max-width: 975px){
 	.keyboard{
 		width: 100%;
 		padding: 20px 0;
@@ -276,18 +289,19 @@ button{
 
 @media screen and (max-width: 780px){
 	#numberOfLives{
+		display: block;
 		position: absolute;
-		top: 15px;
-		right: 5px;
-
+		top: 80px;
+		left: 15px;
 	}
+
+	#numberOfLives p{
+		display: inline-block;
+	}
+
 	.stickyMenu{
 		padding: 8px;
 		margin-bottom: 20px;
-	}
-
-	main{
-		margin-top: 80px;
 	}
 
 	#difficultySec{
@@ -312,9 +326,8 @@ button{
 
 	#gameSec>section:first-of-type{
 		display: flex;
-		justify-content: space-between;
+		justify-content: center;
 		flex-wrap: wrap;
-		background-color: white;
 		padding-bottom: 50px;
 	}
 
@@ -322,15 +335,16 @@ button{
 		flex: 1;
 	}
 
-	#hangman{
+	#canvasHangman{
+		min-height: 350px;
+	}
+
+	.hangman{
 		width: 100%;
 		max-width: 350px;
 		margin-bottom: 70px;
 	}
-
-	#canvasHangman{
-		flex: 1;
-	}
+	
 
 	.popup{
 		-ms-transform: none; /* IE 9 */
@@ -342,9 +356,5 @@ button{
 		width: 100%;
 		margin-left: auto;
 		margin-right: auto;
-	}
-
-	#numberOfLives{
-		padding-top: 40px;
 	}
 }
